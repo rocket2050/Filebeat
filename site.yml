@@ -1,0 +1,4 @@
+---
+- hosts: filebeat_hosts
+  roles:
+    - {role: "ansible-role-filebeat"}

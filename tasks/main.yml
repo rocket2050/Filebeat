@@ -1,0 +1,40 @@
+---
+# tasks file for filebeat
+- name: Create group
+  group:
+    name: "{{ filebeat_group }}"
+
+- name: Create user
+  user:
+    name: "{{ filebeat_user }}"
+    group: "{{ filebeat_group }}"
+
+- name: Download rpm
+  get_url:
+    url: "{{ filebeat_rpm_url }}"
+    dest: "/tmp/filebeat-{{ filebeat_version }}.rpm"
+
+- name: Install
+  yum:
+     name: "/tmp/filebeat-{{ filebeat_version }}.rpm"
+     state: present
+
+- name: Create configuration file
+  template:
+    src: "filebeat.yml.j2"
+    dest: "{{ filebeat_config_dir }}/filebeat.yml"
+    mode: 0644
+
+- name: Ensure log directory exists
+  file:
+    path: "{{ filebeat_log_dir }}"
+    state: directory
+    group: "{{ filebeat_group }}"
+    owner: "{{ filebeat_user }}"
+    mode: 0755
+
+- name: Restarted filebeat
+  service: 
+    name: filebeat
+    state: restarted
+    enabled: yes
