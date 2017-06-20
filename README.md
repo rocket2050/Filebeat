@@ -13,17 +13,6 @@ Role Variables
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-### supervisord_config_dir
-
-Directory where supervisord reads configuration files.
-
-Default is `/etc/supervisor.d`.
-
-### filebeat_supervisor_enabled
-
-Install filebeat in supervisor or not.
-
-Default is true.
 
 ### filebeat_version
 
@@ -81,5 +70,6 @@ BSD
 Author Information
 ------------------
 www.opstree.com
+
 blog.opstree.com
 
